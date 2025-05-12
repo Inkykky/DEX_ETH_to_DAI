@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/DEX_ETH_to_DAI/static/css/main.42295e7e.css",
-    "main.js": "/DEX_ETH_to_DAI/static/js/main.cfdb8891.js",
+    "main.js": "/DEX_ETH_to_DAI/static/js/main.3ee98ac5.js",
     "index.html": "/DEX_ETH_to_DAI/index.html",
     "main.42295e7e.css.map": "/DEX_ETH_to_DAI/static/css/main.42295e7e.css.map",
-    "main.cfdb8891.js.map": "/DEX_ETH_to_DAI/static/js/main.cfdb8891.js.map"
+    "main.3ee98ac5.js.map": "/DEX_ETH_to_DAI/static/js/main.3ee98ac5.js.map"
   },
   "entrypoints": [
     "static/css/main.42295e7e.css",
-    "static/js/main.cfdb8891.js"
+    "static/js/main.3ee98ac5.js"
   ]
 }
