@@ -1,0 +1,22 @@
+const { expect } = require("chai");
+const { ethers } = require("hardhat");
+
+describe("Lock", function () {
+  let lock;
+
+  beforeEach(async function () {
+    const Lock = await ethers.getContractFactory("Lock");
+    lock = await Lock.deploy();
+    await lock.deployed();
+  });
+
+  it("should unlock with the correct key", async function () {
+    await lock.unlock("key");
+    expect(await lock.locked()).to.be.false;
+  });
+
+  it("should remain locked with the incorrect key", async function () {
+    await lock.unlock("wrong-key");
+    expect(await lock.locked()).to.be.true;
+  });
+});

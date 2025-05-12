@@ -1,0 +1,32 @@
+const { expect } = require("chai");
+const { ethers } = require("hardhat");
+
+describe("Token Contract", function () {
+    let Token;
+    let token;
+    let owner;
+    let addr1;
+
+    beforeEach(async function () {
+        Token = await ethers.getContractFactory("Token");
+        [owner, addr1] = await ethers.getSigners();
+        token = await Token.deploy();
+        await token.deployed();
+    });
+
+    it("Should have the correct name and symbol", async function () {
+        expect(await token.name()).to.equal("Token");
+        expect(await token.symbol()).to.equal("TKN");
+    });
+
+    it("Should mint tokens to the owner", async function () {
+        const initialSupply = await token.totalSupply();
+        expect(initialSupply).to.equal(ethers.utils.parseUnits("1000", 18));
+    });
+
+    it("Should transfer tokens between accounts", async function () {
+        await token.transfer(addr1.address, 50);
+        const addr1Balance = await token.balanceOf(addr1.address);
+        expect(addr1Balance).to.equal(50);
+    });
+});

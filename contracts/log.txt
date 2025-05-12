@@ -1,0 +1,549 @@
+Using contract tester version 0.6.4
+(1/3)🧬Compiling contract: DEX_v1_test_20851948_1746981633.sol
+[✅PASS]Compilation
+(2/3)🤖Generating test case for: DEX_v1_test_20851948_1746981633.sol
+[✅PASS]Read contract
+[ℹ️INFO] Contract file already exists in destination, skipping adjust.
+[⚠️WARNING]No </think> tag found in input
+[✅PASS]Test case generation
+[✅PASS]Write test contract file
+(3/3)🧪Running tests in DEX_v1_test_20851948_1746981633.t.sol
+(🧪Attempt 1/3)
+Compiling 1 files with Solc 0.8.28
+Solc 0.8.28 finished in 832.22ms
+Compiler run successful with warnings:
+Warning (2072): Unused local variable.
+   --> test/DEX_v1_test_20851948_1746981633.t.sol:131:9:
+    |
+131 |         uint256 totalSupplyAfterFirst = pool.totalSupply();
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (2072): Unused local variable.
+   --> test/DEX_v1_test_20851948_1746981633.t.sol:165:9:
+    |
+165 |         uint256 providerETHBefore = provider.balance;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (2072): Unused local variable.
+   --> test/DEX_v1_test_20851948_1746981633.t.sol:166:9:
+    |
+166 |         uint256 providerTokenBefore = token1.balanceOf(provider);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Ran 12 tests for test/DEX_v1_test_20851948_1746981633.t.sol:LiquidityPoolTest
+[PASS] test_addLiquidityInsufficientAllowance() (gas: 32082)
+Logs:
+  LiquidityPool deployed with owner: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496
+
+Traces:
+  [32082] LiquidityPoolTest::test_addLiquidityInsufficientAllowance()
+    ├─ [0] VM::startPrank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return] 
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  !Insufficient allowance for Token1)
+    │   └─ ← [Return] 
+    ├─ [12503] LiquidityPool::addLiquidity{value: 1000000000000000000}(100000000000000000000 [1e20])
+    │   ├─ [3223] TestERC20::allowance(ECRecover: [0x0000000000000000000000000000000000000001], LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Revert] revert: Insufficient allowance for Token1
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    └─ ← [Stop] 
+
+[PASS] test_addLiquidityInvalidAmounts() (gas: 67308)
+Logs:
+  LiquidityPool deployed with owner: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496
+
+Traces:
+  [67308] LiquidityPoolTest::test_addLiquidityInvalidAmounts()
+    ├─ [0] VM::startPrank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return] 
+    ├─ [25296] TestERC20::approve(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 1000000000000000000000 [1e21])
+    │   ├─ emit Approval(owner: ECRecover: [0x0000000000000000000000000000000000000001], spender: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 1000000000000000000000 [1e21])
+    │   └─ ← [Return] true
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  Invalid amounts)
+    │   └─ ← [Return] 
+    ├─ [5884] LiquidityPool::addLiquidity(500000000000000000000 [5e20])
+    │   └─ ← [Revert] revert: Invalid amounts
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  Invalid amounts)
+    │   └─ ← [Return] 
+    ├─ [5894] LiquidityPool::addLiquidity{value: 1000000000000000000}(0)
+    │   └─ ← [Revert] revert: Invalid amounts
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    └─ ← [Stop] 
+
+[PASS] test_additionalLiquidityAddition() (gas: 396664)
+Logs:
+  LiquidityPool deployed with owner: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496
+
+Traces:
+  [402264] LiquidityPoolTest::test_additionalLiquidityAddition()
+    ├─ [0] VM::startPrank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return] 
+    ├─ [25296] TestERC20::approve(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 1000000000000000000000 [1e21])
+    │   ├─ emit Approval(owner: ECRecover: [0x0000000000000000000000000000000000000001], spender: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 1000000000000000000000 [1e21])
+    │   └─ ← [Return] true
+    ├─ [233694] LiquidityPool::addLiquidity{value: 5000000000000000000}(500000000000000000000 [5e20])
+    │   ├─ [1223] TestERC20::allowance(ECRecover: [0x0000000000000000000000000000000000000001], LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─ [2850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [29614] TestERC20::transferFrom(ECRecover: [0x0000000000000000000000000000000000000001], LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 500000000000000000000 [5e20])
+    │   │   ├─ emit Transfer(from: ECRecover: [0x0000000000000000000000000000000000000001], to: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 500000000000000000000 [5e20])
+    │   │   └─ ← [Return] true
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 500000000000000000000 [5e20]
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x000000000000000000000000000000000000dEaD, value: 10)
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 500000000000000000000 [5e20]
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ECRecover: [0x0000000000000000000000000000000000000001], value: 49999999999999999990 [4.999e19])
+    │   ├─ emit LiquidityAdded(provider: ECRecover: [0x0000000000000000000000000000000000000001], amount0: 5000000000000000000 [5e18], amount1: 500000000000000000000 [5e20], liquidity: 49999999999999999990 [4.999e19])
+    │   └─ ← [Return] 49999999999999999990 [4.999e19]
+    ├─ [544] LiquidityPool::totalSupply() [staticcall]
+    │   └─ ← [Return] 50000000000000000000 [5e19]
+    ├─ [712] LiquidityPool::getReserves() [staticcall]
+    │   └─ ← [Return] 5000000000000000000 [5e18], 500000000000000000000 [5e20]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    ├─ [0] VM::startPrank(RIPEMD-160: [0x0000000000000000000000000000000000000003])
+    │   └─ ← [Return] 
+    ├─ [25296] TestERC20::approve(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 1000000000000000000000 [1e21])
+    │   ├─ emit Approval(owner: RIPEMD-160: [0x0000000000000000000000000000000000000003], spender: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 1000000000000000000000 [1e21])
+    │   └─ ← [Return] true
+    ├─ [72776] LiquidityPool::addLiquidity{value: 3000000000000000000}(300000000000000000000 [3e20])
+    │   ├─ [1223] TestERC20::allowance(RIPEMD-160: [0x0000000000000000000000000000000000000003], LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 500000000000000000000 [5e20]
+    │   ├─ [9714] TestERC20::transferFrom(RIPEMD-160: [0x0000000000000000000000000000000000000003], LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 300000000000000000000 [3e20])
+    │   │   ├─ emit Transfer(from: RIPEMD-160: [0x0000000000000000000000000000000000000003], to: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 300000000000000000000 [3e20])
+    │   │   └─ ← [Return] true
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 800000000000000000000 [8e20]
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 800000000000000000000 [8e20]
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: RIPEMD-160: [0x0000000000000000000000000000000000000003], value: 30000000000000000000 [3e19])
+    │   ├─ emit LiquidityAdded(provider: RIPEMD-160: [0x0000000000000000000000000000000000000003], amount0: 3000000000000000000 [3e18], amount1: 300000000000000000000 [3e20], liquidity: 30000000000000000000 [3e19])
+    │   └─ ← [Return] 30000000000000000000 [3e19]
+    ├─ [0] VM::assertGt(30000000000000000000 [3e19], 0, "Additional liquidity minted should be > 0") [staticcall]
+    │   └─ ← [Return] 
+    ├─ [712] LiquidityPool::getReserves() [staticcall]
+    │   └─ ← [Return] 8000000000000000000 [8e18], 800000000000000000000 [8e20]
+    ├─ [0] VM::assertEq(8000000000000000000 [8e18], 8000000000000000000 [8e18], "ETH reserve did not increase correctly") [staticcall]
+    │   └─ ← [Return] 
+    ├─ [0] VM::assertEq(800000000000000000000 [8e20], 800000000000000000000 [8e20], "Token1 reserve did not increase correctly") [staticcall]
+    │   └─ ← [Return] 
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    └─ ← [Stop] 
+
+[PASS] test_getPoolInfo() (gas: 294566)
+Logs:
+  LiquidityPool deployed with owner: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496
+
+Traces:
+  [297366] LiquidityPoolTest::test_getPoolInfo()
+    ├─ [0] VM::startPrank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return] 
+    ├─ [25296] TestERC20::approve(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 1000000000000000000000 [1e21])
+    │   ├─ emit Approval(owner: ECRecover: [0x0000000000000000000000000000000000000001], spender: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 1000000000000000000000 [1e21])
+    │   └─ ← [Return] true
+    ├─ [233694] LiquidityPool::addLiquidity{value: 5000000000000000000}(500000000000000000000 [5e20])
+    │   ├─ [1223] TestERC20::allowance(ECRecover: [0x0000000000000000000000000000000000000001], LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─ [2850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [29614] TestERC20::transferFrom(ECRecover: [0x0000000000000000000000000000000000000001], LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 500000000000000000000 [5e20])
+    │   │   ├─ emit Transfer(from: ECRecover: [0x0000000000000000000000000000000000000001], to: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 500000000000000000000 [5e20])
+    │   │   └─ ← [Return] true
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 500000000000000000000 [5e20]
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x000000000000000000000000000000000000dEaD, value: 10)
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 500000000000000000000 [5e20]
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ECRecover: [0x0000000000000000000000000000000000000001], value: 49999999999999999990 [4.999e19])
+    │   ├─ emit LiquidityAdded(provider: ECRecover: [0x0000000000000000000000000000000000000001], amount0: 5000000000000000000 [5e18], amount1: 500000000000000000000 [5e20], liquidity: 49999999999999999990 [4.999e19])
+    │   └─ ← [Return] 49999999999999999990 [4.999e19]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    ├─ [1502] LiquidityPool::getPoolInfo() [staticcall]
+    │   └─ ← [Return] "ETH", TestERC20: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 5000000000000000000 [5e18], 500000000000000000000 [5e20], 50000000000000000000 [5e19]
+    ├─ [0] VM::assertEq("ETH", "ETH", "Token0 symbol should be ETH") [staticcall]
+    │   └─ ← [Return] 
+    ├─ [0] VM::assertEq(TestERC20: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], TestERC20: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], "Token1 address mismatch") [staticcall]
+    │   └─ ← [Return] 
+    ├─ [0] VM::assertEq(5000000000000000000 [5e18], 5000000000000000000 [5e18], "ETH reserve mismatch") [staticcall]
+    │   └─ ← [Return] 
+    ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   └─ ← [Return] 500000000000000000000 [5e20]
+    ├─ [0] VM::assertEq(500000000000000000000 [5e20], 500000000000000000000 [5e20], "Token1 reserve mismatch") [staticcall]
+    │   └─ ← [Return] 
+    ├─ [544] LiquidityPool::totalSupply() [staticcall]
+    │   └─ ← [Return] 50000000000000000000 [5e19]
+    ├─ [0] VM::assertEq(50000000000000000000 [5e19], 50000000000000000000 [5e19], "Total liquidity mismatch") [staticcall]
+    │   └─ ← [Return] 
+    └─ ← [Stop] 
+
+[PASS] test_initialLiquidityAddition() (gas: 288208)
+Logs:
+  LiquidityPool deployed with owner: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496
+
+Traces:
+  [291008] LiquidityPoolTest::test_initialLiquidityAddition()
+    ├─ [0] VM::startPrank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return] 
+    ├─ [25296] TestERC20::approve(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 1000000000000000000000 [1e21])
+    │   ├─ emit Approval(owner: ECRecover: [0x0000000000000000000000000000000000000001], spender: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 1000000000000000000000 [1e21])
+    │   └─ ← [Return] true
+    ├─ [233694] LiquidityPool::addLiquidity{value: 5000000000000000000}(500000000000000000000 [5e20])
+    │   ├─ [1223] TestERC20::allowance(ECRecover: [0x0000000000000000000000000000000000000001], LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─ [2850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [29614] TestERC20::transferFrom(ECRecover: [0x0000000000000000000000000000000000000001], LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 500000000000000000000 [5e20])
+    │   │   ├─ emit Transfer(from: ECRecover: [0x0000000000000000000000000000000000000001], to: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 500000000000000000000 [5e20])
+    │   │   └─ ← [Return] true
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 500000000000000000000 [5e20]
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x000000000000000000000000000000000000dEaD, value: 10)
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 500000000000000000000 [5e20]
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ECRecover: [0x0000000000000000000000000000000000000001], value: 49999999999999999990 [4.999e19])
+    │   ├─ emit LiquidityAdded(provider: ECRecover: [0x0000000000000000000000000000000000000001], amount0: 5000000000000000000 [5e18], amount1: 500000000000000000000 [5e20], liquidity: 49999999999999999990 [4.999e19])
+    │   └─ ← [Return] 49999999999999999990 [4.999e19]
+    ├─ [0] VM::assertGt(49999999999999999990 [4.999e19], 0, "Liquidity minted should be > 0") [staticcall]
+    │   └─ ← [Return] 
+    ├─ [712] LiquidityPool::getReserves() [staticcall]
+    │   └─ ← [Return] 5000000000000000000 [5e18], 500000000000000000000 [5e20]
+    ├─ [0] VM::assertEq(5000000000000000000 [5e18], 5000000000000000000 [5e18], "ETH reserve mismatch after adding liquidity") [staticcall]
+    │   └─ ← [Return] 
+    ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   └─ ← [Return] 500000000000000000000 [5e20]
+    ├─ [0] VM::assertEq(500000000000000000000 [5e20], 500000000000000000000 [5e20], "Token1 reserve mismatch") [staticcall]
+    │   └─ ← [Return] 
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    └─ ← [Stop] 
+
+[PASS] test_ownerAccessControl() (gas: 16771)
+Logs:
+  LiquidityPool deployed with owner: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496
+
+Traces:
+  [16771] LiquidityPoolTest::test_ownerAccessControl()
+    ├─ [2626] LiquidityPool::owner() [staticcall]
+    │   └─ ← [Return] LiquidityPoolTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    ├─ [0] VM::assertEq(LiquidityPoolTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], LiquidityPoolTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], "Owner should be the deployer") [staticcall]
+    │   └─ ← [Return] 
+    ├─ [0] VM::prank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return] 
+    ├─ [626] LiquidityPool::owner() [staticcall]
+    │   └─ ← [Return] LiquidityPoolTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    ├─ [0] VM::assertFalse(false, "Provider should not be the owner") [staticcall]
+    │   └─ ← [Return] 
+    └─ ← [Stop] 
+
+[PASS] test_removeLiquidity() (gas: 312079)
+Logs:
+  LiquidityPool deployed with owner: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496
+
+Traces:
+  [317679] LiquidityPoolTest::test_removeLiquidity()
+    ├─ [0] VM::startPrank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return] 
+    ├─ [25296] TestERC20::approve(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 1000000000000000000000 [1e21])
+    │   ├─ emit Approval(owner: ECRecover: [0x0000000000000000000000000000000000000001], spender: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 1000000000000000000000 [1e21])
+    │   └─ ← [Return] true
+    ├─ [233694] LiquidityPool::addLiquidity{value: 5000000000000000000}(500000000000000000000 [5e20])
+    │   ├─ [1223] TestERC20::allowance(ECRecover: [0x0000000000000000000000000000000000000001], LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─ [2850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [29614] TestERC20::transferFrom(ECRecover: [0x0000000000000000000000000000000000000001], LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 500000000000000000000 [5e20])
+    │   │   ├─ emit Transfer(from: ECRecover: [0x0000000000000000000000000000000000000001], to: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 500000000000000000000 [5e20])
+    │   │   └─ ← [Return] true
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 500000000000000000000 [5e20]
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x000000000000000000000000000000000000dEaD, value: 10)
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 500000000000000000000 [5e20]
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ECRecover: [0x0000000000000000000000000000000000000001], value: 49999999999999999990 [4.999e19])
+    │   ├─ emit LiquidityAdded(provider: ECRecover: [0x0000000000000000000000000000000000000001], amount0: 5000000000000000000 [5e18], amount1: 500000000000000000000 [5e20], liquidity: 49999999999999999990 [4.999e19])
+    │   └─ ← [Return] 49999999999999999990 [4.999e19]
+    ├─ [850] TestERC20::balanceOf(ECRecover: [0x0000000000000000000000000000000000000001]) [staticcall]
+    │   └─ ← [Return] 500000000000000000000 [5e20]
+    ├─ [27862] LiquidityPool::removeLiquidity(24999999999999999995 [2.499e19])
+    │   ├─ emit Transfer(from: ECRecover: [0x0000000000000000000000000000000000000001], to: 0x0000000000000000000000000000000000000000, value: 24999999999999999995 [2.499e19])
+    │   ├─ [3845] TestERC20::transfer(ECRecover: [0x0000000000000000000000000000000000000001], 249999999999999999950 [2.499e20])
+    │   │   ├─ emit Transfer(from: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], to: ECRecover: [0x0000000000000000000000000000000000000001], value: 249999999999999999950 [2.499e20])
+    │   │   └─ ← [Return] true
+    │   ├─ [3000] ECRecover::fallback{value: 2499999999999999999}()
+    │   │   └─ ← [Return] 
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 250000000000000000050 [2.5e20]
+    │   ├─ emit LiquidityRemoved(provider: ECRecover: [0x0000000000000000000000000000000000000001], amount0: 2499999999999999999 [2.499e18], amount1: 249999999999999999950 [2.499e20], liquidity: 24999999999999999995 [2.499e19])
+    │   └─ ← [Return] 2499999999999999999 [2.499e18], 249999999999999999950 [2.499e20]
+    ├─ [0] VM::assertGt(2499999999999999999 [2.499e18], 0, "ETH amount removed should be > 0") [staticcall]
+    │   └─ ← [Return] 
+    ├─ [0] VM::assertGt(249999999999999999950 [2.499e20], 0, "Token1 amount removed should be > 0") [staticcall]
+    │   └─ ← [Return] 
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    └─ ← [Stop] 
+
+[PASS] test_removeLiquidityWithoutProviding() (gas: 293239)
+Logs:
+  LiquidityPool deployed with owner: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496
+
+Traces:
+  [296039] LiquidityPoolTest::test_removeLiquidityWithoutProviding()
+    ├─ [0] VM::startPrank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return] 
+    ├─ [25296] TestERC20::approve(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 1000000000000000000000 [1e21])
+    │   ├─ emit Approval(owner: ECRecover: [0x0000000000000000000000000000000000000001], spender: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 1000000000000000000000 [1e21])
+    │   └─ ← [Return] true
+    ├─ [233694] LiquidityPool::addLiquidity{value: 5000000000000000000}(500000000000000000000 [5e20])
+    │   ├─ [1223] TestERC20::allowance(ECRecover: [0x0000000000000000000000000000000000000001], LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─ [2850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [29614] TestERC20::transferFrom(ECRecover: [0x0000000000000000000000000000000000000001], LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 500000000000000000000 [5e20])
+    │   │   ├─ emit Transfer(from: ECRecover: [0x0000000000000000000000000000000000000001], to: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 500000000000000000000 [5e20])
+    │   │   └─ ← [Return] true
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 500000000000000000000 [5e20]
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x000000000000000000000000000000000000dEaD, value: 10)
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 500000000000000000000 [5e20]
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ECRecover: [0x0000000000000000000000000000000000000001], value: 49999999999999999990 [4.999e19])
+    │   ├─ emit LiquidityAdded(provider: ECRecover: [0x0000000000000000000000000000000000000001], amount0: 5000000000000000000 [5e18], amount1: 500000000000000000000 [5e20], liquidity: 49999999999999999990 [4.999e19])
+    │   └─ ← [Return] 49999999999999999990 [4.999e19]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    ├─ [0] VM::startPrank(SHA-256: [0x0000000000000000000000000000000000000002])
+    │   └─ ← [Return] 
+    ├─ [0] VM::expectRevert(custom error 0xf4844814)
+    │   └─ ← [Return] 
+    ├─ [6135] LiquidityPool::removeLiquidity(1)
+    │   └─ ← [Revert] revert: Insufficient LP tokens
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    └─ ← [Stop] 
+
+[PASS] test_swapETHForToken1() (gas: 295313)
+Logs:
+  LiquidityPool deployed with owner: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496
+
+Traces:
+  [325613] LiquidityPoolTest::test_swapETHForToken1()
+    ├─ [0] VM::startPrank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return] 
+    ├─ [25296] TestERC20::approve(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 1000000000000000000000 [1e21])
+    │   ├─ emit Approval(owner: ECRecover: [0x0000000000000000000000000000000000000001], spender: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 1000000000000000000000 [1e21])
+    │   └─ ← [Return] true
+    ├─ [234288] LiquidityPool::addLiquidity{value: 10000000000000000000}(1000000000000000000000 [1e21])
+    │   ├─ [1223] TestERC20::allowance(ECRecover: [0x0000000000000000000000000000000000000001], LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─ [2850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [29614] TestERC20::transferFrom(ECRecover: [0x0000000000000000000000000000000000000001], LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 1000000000000000000000 [1e21])
+    │   │   ├─ emit Transfer(from: ECRecover: [0x0000000000000000000000000000000000000001], to: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 1000000000000000000000 [1e21])
+    │   │   └─ ← [Return] true
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x000000000000000000000000000000000000dEaD, value: 10)
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ECRecover: [0x0000000000000000000000000000000000000001], value: 99999999999999999990 [9.999e19])
+    │   ├─ emit LiquidityAdded(provider: ECRecover: [0x0000000000000000000000000000000000000001], amount0: 10000000000000000000 [1e19], amount1: 1000000000000000000000 [1e21], liquidity: 99999999999999999990 [9.999e19])
+    │   └─ ← [Return] 99999999999999999990 [9.999e19]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    ├─ [712] LiquidityPool::getReserves() [staticcall]
+    │   └─ ← [Return] 10000000000000000000 [1e19], 1000000000000000000000 [1e21]
+    ├─ [0] VM::startPrank(SHA-256: [0x0000000000000000000000000000000000000002])
+    │   └─ ← [Return] 
+    ├─ [2850] TestERC20::balanceOf(SHA-256: [0x0000000000000000000000000000000000000002]) [staticcall]
+    │   └─ ← [Return] 1000000000000000000000 [1e21]
+    ├─ [17630] LiquidityPool::swapETHForToken1{value: 1000000000000000000}(SHA-256: [0x0000000000000000000000000000000000000002])
+    │   ├─ [6645] TestERC20::transfer(SHA-256: [0x0000000000000000000000000000000000000002], 90661089388014913158 [9.066e19])
+    │   │   ├─ emit Transfer(from: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], to: SHA-256: [0x0000000000000000000000000000000000000002], value: 90661089388014913158 [9.066e19])
+    │   │   └─ ← [Return] true
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 909338910611985086842 [9.093e20]
+    │   ├─ emit Swap(sender: SHA-256: [0x0000000000000000000000000000000000000002], amount0In: 1000000000000000000 [1e18], amount0Out: 0, amount1In: 0, amount1Out: 90661089388014913158 [9.066e19])
+    │   └─ ← [Stop] 
+    ├─ [850] TestERC20::balanceOf(SHA-256: [0x0000000000000000000000000000000000000002]) [staticcall]
+    │   └─ ← [Return] 1090661089388014913158 [1.09e21]
+    ├─ [0] VM::assertGt(90661089388014913158 [9.066e19], 0, "Swapper should receive some amount of Token1") [staticcall]
+    │   └─ ← [Return] 
+    ├─ [712] LiquidityPool::getReserves() [staticcall]
+    │   └─ ← [Return] 11000000000000000000 [1.1e19], 909338910611985086842 [9.093e20]
+    ├─ [0] VM::assertEq(11000000000000000000 [1.1e19], 11000000000000000000 [1.1e19], "ETH reserve should increase by swap amount") [staticcall]
+    │   └─ ← [Return] 
+    ├─ [0] VM::assertLt(909338910611985086842 [9.093e20], 1000000000000000000000 [1e21], "Token1 reserve should decrease after swap") [staticcall]
+    │   └─ ← [Return] 
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    └─ ← [Stop] 
+
+[PASS] test_swapETHForToken1InvalidRecipient() (gas: 309180)
+Logs:
+  LiquidityPool deployed with owner: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496
+
+Traces:
+  [311980] LiquidityPoolTest::test_swapETHForToken1InvalidRecipient()
+    ├─ [0] VM::startPrank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return] 
+    ├─ [25296] TestERC20::approve(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 1000000000000000000000 [1e21])
+    │   ├─ emit Approval(owner: ECRecover: [0x0000000000000000000000000000000000000001], spender: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 1000000000000000000000 [1e21])
+    │   └─ ← [Return] true
+    ├─ [233694] LiquidityPool::addLiquidity{value: 5000000000000000000}(500000000000000000000 [5e20])
+    │   ├─ [1223] TestERC20::allowance(ECRecover: [0x0000000000000000000000000000000000000001], LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─ [2850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [29614] TestERC20::transferFrom(ECRecover: [0x0000000000000000000000000000000000000001], LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 500000000000000000000 [5e20])
+    │   │   ├─ emit Transfer(from: ECRecover: [0x0000000000000000000000000000000000000001], to: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 500000000000000000000 [5e20])
+    │   │   └─ ← [Return] true
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 500000000000000000000 [5e20]
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x000000000000000000000000000000000000dEaD, value: 10)
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 500000000000000000000 [5e20]
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ECRecover: [0x0000000000000000000000000000000000000001], value: 49999999999999999990 [4.999e19])
+    │   ├─ emit LiquidityAdded(provider: ECRecover: [0x0000000000000000000000000000000000000001], amount0: 5000000000000000000 [5e18], amount1: 500000000000000000000 [5e20], liquidity: 49999999999999999990 [4.999e19])
+    │   └─ ← [Return] 49999999999999999990 [4.999e19]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    ├─ [0] VM::startPrank(SHA-256: [0x0000000000000000000000000000000000000002])
+    │   └─ ← [Return] 
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  annot swap to zero address)
+    │   └─ ← [Return] 
+    ├─ [3877] LiquidityPool::swapETHForToken1{value: 1000000000000000000}(0x0000000000000000000000000000000000000000)
+    │   └─ ← [Revert] revert: Cannot swap to zero address
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  Cannot swap to pool)
+    │   └─ ← [Return] 
+    ├─ [3911] LiquidityPool::swapETHForToken1{value: 1000000000000000000}(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b])
+    │   └─ ← [Revert] revert: Cannot swap to pool
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    └─ ← [Stop] 
+
+[PASS] test_swapToken1ForETH() (gas: 307468)
+Logs:
+  LiquidityPool deployed with owner: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496
+
+Traces:
+  [357668] LiquidityPoolTest::test_swapToken1ForETH()
+    ├─ [0] VM::startPrank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return] 
+    ├─ [25296] TestERC20::approve(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 1000000000000000000000 [1e21])
+    │   ├─ emit Approval(owner: ECRecover: [0x0000000000000000000000000000000000000001], spender: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 1000000000000000000000 [1e21])
+    │   └─ ← [Return] true
+    ├─ [234288] LiquidityPool::addLiquidity{value: 10000000000000000000}(1000000000000000000000 [1e21])
+    │   ├─ [1223] TestERC20::allowance(ECRecover: [0x0000000000000000000000000000000000000001], LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─ [2850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [29614] TestERC20::transferFrom(ECRecover: [0x0000000000000000000000000000000000000001], LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 1000000000000000000000 [1e21])
+    │   │   ├─ emit Transfer(from: ECRecover: [0x0000000000000000000000000000000000000001], to: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 1000000000000000000000 [1e21])
+    │   │   └─ ← [Return] true
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x000000000000000000000000000000000000dEaD, value: 10)
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ECRecover: [0x0000000000000000000000000000000000000001], value: 99999999999999999990 [9.999e19])
+    │   ├─ emit LiquidityAdded(provider: ECRecover: [0x0000000000000000000000000000000000000001], amount0: 10000000000000000000 [1e19], amount1: 1000000000000000000000 [1e21], liquidity: 99999999999999999990 [9.999e19])
+    │   └─ ← [Return] 99999999999999999990 [9.999e19]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    ├─ [712] LiquidityPool::getReserves() [staticcall]
+    │   └─ ← [Return] 10000000000000000000 [1e19], 1000000000000000000000 [1e21]
+    ├─ [0] VM::startPrank(SHA-256: [0x0000000000000000000000000000000000000002])
+    │   └─ ← [Return] 
+    ├─ [25296] TestERC20::approve(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 100000000000000000000 [1e20])
+    │   ├─ emit Approval(owner: SHA-256: [0x0000000000000000000000000000000000000002], spender: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 100000000000000000000 [1e20])
+    │   └─ ← [Return] true
+    ├─ [35271] LiquidityPool::swapToken1ForETH(100000000000000000000 [1e20], SHA-256: [0x0000000000000000000000000000000000000002])
+    │   ├─ [2850] TestERC20::balanceOf(SHA-256: [0x0000000000000000000000000000000000000002]) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─ [1223] TestERC20::allowance(SHA-256: [0x0000000000000000000000000000000000000002], LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 100000000000000000000 [1e20]
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─ [7714] TestERC20::transferFrom(SHA-256: [0x0000000000000000000000000000000000000002], LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 100000000000000000000 [1e20])
+    │   │   ├─ emit Transfer(from: SHA-256: [0x0000000000000000000000000000000000000002], to: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 100000000000000000000 [1e20])
+    │   │   └─ ← [Return] true
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 1100000000000000000000 [1.1e21]
+    │   ├─ [60] PRECOMPILES::sha256{value: 906610893880149131}(0x)
+    │   │   └─ ← [Return] 0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 1100000000000000000000 [1.1e21]
+    │   ├─ emit Swap(sender: SHA-256: [0x0000000000000000000000000000000000000002], amount0In: 0, amount0Out: 100000000000000000000 [1e20], amount1In: 906610893880149131 [9.066e17], amount1Out: 0)
+    │   └─ ← [Stop] 
+    ├─ [0] VM::assertGt(906610893880149131 [9.066e17], 0, "Swapper should receive some ETH") [staticcall]
+    │   └─ ← [Return] 
+    ├─ [712] LiquidityPool::getReserves() [staticcall]
+    │   └─ ← [Return] 9093389106119850869 [9.093e18], 1100000000000000000000 [1.1e21]
+    ├─ [0] VM::assertLt(9093389106119850869 [9.093e18], 10000000000000000000 [1e19], "ETH reserve should decrease after swap") [staticcall]
+    │   └─ ← [Return] 
+    ├─ [0] VM::assertGt(1100000000000000000000 [1.1e21], 1000000000000000000000 [1e21], "Token1 reserve should increase after swap") [staticcall]
+    │   └─ ← [Return] 
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    └─ ← [Stop] 
+
+[PASS] test_swapToken1ForETHInvalidRecipient() (gas: 323195)
+Logs:
+  LiquidityPool deployed with owner: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496
+
+Traces:
+  [325995] LiquidityPoolTest::test_swapToken1ForETHInvalidRecipient()
+    ├─ [0] VM::startPrank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return] 
+    ├─ [25296] TestERC20::approve(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 1000000000000000000000 [1e21])
+    │   ├─ emit Approval(owner: ECRecover: [0x0000000000000000000000000000000000000001], spender: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 1000000000000000000000 [1e21])
+    │   └─ ← [Return] true
+    ├─ [233694] LiquidityPool::addLiquidity{value: 5000000000000000000}(500000000000000000000 [5e20])
+    │   ├─ [1223] TestERC20::allowance(ECRecover: [0x0000000000000000000000000000000000000001], LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─ [2850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [29614] TestERC20::transferFrom(ECRecover: [0x0000000000000000000000000000000000000001], LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 500000000000000000000 [5e20])
+    │   │   ├─ emit Transfer(from: ECRecover: [0x0000000000000000000000000000000000000001], to: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 500000000000000000000 [5e20])
+    │   │   └─ ← [Return] true
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 500000000000000000000 [5e20]
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x000000000000000000000000000000000000dEaD, value: 10)
+    │   ├─ [850] TestERC20::balanceOf(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 500000000000000000000 [5e20]
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ECRecover: [0x0000000000000000000000000000000000000001], value: 49999999999999999990 [4.999e19])
+    │   ├─ emit LiquidityAdded(provider: ECRecover: [0x0000000000000000000000000000000000000001], amount0: 5000000000000000000 [5e18], amount1: 500000000000000000000 [5e20], liquidity: 49999999999999999990 [4.999e19])
+    │   └─ ← [Return] 49999999999999999990 [4.999e19]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    ├─ [0] VM::startPrank(RIPEMD-160: [0x0000000000000000000000000000000000000003])
+    │   └─ ← [Return] 
+    ├─ [25296] TestERC20::approve(LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 100000000000000000000 [1e20])
+    │   ├─ emit Approval(owner: RIPEMD-160: [0x0000000000000000000000000000000000000003], spender: LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 100000000000000000000 [1e20])
+    │   └─ ← [Return] true
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  annot swap to zero address)
+    │   └─ ← [Return] 
+    ├─ [4083] LiquidityPool::swapToken1ForETH(100000000000000000000 [1e20], 0x0000000000000000000000000000000000000000)
+    │   └─ ← [Revert] revert: Cannot swap to zero address
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  Cannot swap to pool)
+    │   └─ ← [Return] 
+    ├─ [4117] LiquidityPool::swapToken1ForETH(100000000000000000000 [1e20], LiquidityPool: [0x2e234DAe75C793f67A35089C9d99245E1C58470b])
+    │   └─ ← [Revert] revert: Cannot swap to pool
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return] 
+    └─ ← [Stop] 
+
+Suite result: ok. 12 passed; 0 failed; 0 skipped; finished in 6.22ms (7.08ms CPU time)
+
+Ran 1 test suite in 16.62ms (6.22ms CPU time): 12 tests passed, 0 failed, 0 skipped (12 total tests)
+
