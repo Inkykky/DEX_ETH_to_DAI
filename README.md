@@ -1,6 +1,13 @@
 # DEX v2 - Decentralized Exchange
 
-A simple decentralized exchange (DEX) implementation with a frontend interface.
+A simple decentralized exchange (DEX) implementation with a frontend interface. Sepolia testnet is used in this case.
+
+## Live Demo
+
+You can access a live demonstration of the deployed front-end here:
+[DEX v2 on GitHub Pages](https://Inkykky.github.io/DEX_ETH_to_DAI)
+However, since the pool is not initialized, it cannot be used to swap tokens. The reason it is not initialized is that I set the minimum liquidity to 10, which means it requires amountETH * amountDAI = 100. I don’t have that many tokens in Sepolia, so I couldn't initialize it. However, I recorded a video to demonstrate the functionality on localhost.
+
 
 ## Smart Contract
 
