@@ -15,23 +15,20 @@ function ConnectWallet({ account, setAccount, setProvider }) {
     }
 
     try {
-      // Request account access
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      
-      // Get provider and signer
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       setProvider(provider);
-      
-      // Set the account
       setAccount(accounts[0]);
-      
-      // Make sure we're on the local Hardhat network
+
       const network = await provider.getNetwork();
-      if (network.chainId !== 31337) {  // Hardhat local chain ID
+      const sepoliaChainId = 11155111; // Sepolia Chain ID
+      const sepoliaChainIdHex = '0xaa36a7'; // Sepolia Chain ID in hexadecimal
+
+      if (network.chainId !== sepoliaChainId) {
         try {
           await window.ethereum.request({
             method: 'wallet_switchEthereumChain',
-            params: [{ chainId: '0x7A69' }], // 0x7A69 is 31337 in hexadecimal
+            params: [{ chainId: sepoliaChainIdHex }],
           });
         } catch (switchError) {
           // This error code indicates that the chain has not been added to MetaMask.
@@ -41,29 +38,31 @@ function ConnectWallet({ account, setAccount, setProvider }) {
                 method: 'wallet_addEthereumChain',
                 params: [
                   {
-                    chainId: '0x7A69',
-                    chainName: 'Hardhat Local',
-                    rpcUrls: ['http://localhost:8545'],
+                    chainId: sepoliaChainIdHex,
+                    chainName: 'Sepolia Testnet',
+                    rpcUrls: ['https://rpc.sepolia.org', 'https://rpc2.sepolia.org'], // Official public RPCs
                     nativeCurrency: {
-                      name: 'ETH',
-                      symbol: 'ETH',
+                      name: 'Sepolia ETH',
+                      symbol: 'SEP',
                       decimals: 18,
                     },
+                    blockExplorerUrls: ['https://sepolia.etherscan.io'],
                   },
                 ],
               });
             } catch (addError) {
-              console.error("Failed to add Hardhat network to MetaMask", addError);
-              alert('Failed to add the Hardhat network to MetaMask. Please add it manually.');
+              console.error("Failed to add Sepolia network to MetaMask", addError);
+              alert('Failed to add the Sepolia network to MetaMask. Please add it manually and connect.');
             }
           } else {
-            console.error("Failed to switch to Hardhat network", switchError);
-            alert('Please switch to the Hardhat Local network in MetaMask.');
+            console.error("Failed to switch to Sepolia network", switchError);
+            alert('Please switch to the Sepolia Testnet in MetaMask.');
           }
         }
       }
     } catch (error) {
       console.error(error);
+      alert('Failed to connect wallet. See console for details.');
     }
   };
 

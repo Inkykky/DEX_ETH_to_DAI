@@ -11,8 +11,8 @@ import { ERC20ABI } from './contracts/ERC20ABI';
 
 function App() {
   // Contract addresses
-  const DEX_CONTRACT_ADDRESS = "0x44FDc2403008169cd51BeA4B2Dd4D836fFFF94Ae"; // Replace with your deployed contract address
-  const DAI_CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3"; // Sepolia Testnet DAI
+  const DEX_CONTRACT_ADDRESS = "0xB1112E6517Cc9c2Fbf519a4A4d70AE71eb657F45"; // Replace with your deployed contract address
+  const DAI_CONTRACT_ADDRESS = "0xff34b3d4aee8ddcd6f9afffb6fe49bd371b8a357"; // Sepolia Testnet DAI
   
   // State variables
   const [account, setAccount] = useState(null);

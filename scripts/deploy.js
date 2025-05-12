@@ -2,7 +2,7 @@ const hre = require("hardhat");
 
 async function main() {
   // Sepolia Testnet DAI address
-  const DAI_ADDRESS = "0x68194a729C2450ad26072b3D33ADaCbcef39D574";
+  const DAI_ADDRESS = "0xff34b3d4aee8ddcd6f9afffb6fe49bd371b8a357";
   
   console.log("Deploying LiquidityPool with DAI as token1...");
   
